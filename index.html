@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestations Artax Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#fff;color:#000;overflow-x:hidden}
+/* ── LAYOUT ── */
+.section{padding:16px;min-height:100vh}
+@media(min-width:768px){.section{padding:24px 32px}}
+.inner{max-width:1280px;margin:0 auto}
+/* ── HEADER ── */
+.header{display:flex;flex-direction:column;gap:16px;margin-bottom:16px}
+@media(min-width:768px){.header{flex-direction:row;justify-content:space-between;align-items:flex-end;margin-bottom:40px}}
+.header-title{font-size:clamp(22px,6vw,48px);font-weight:900;letter-spacing:-.04em;text-transform:uppercase;line-height:.95}
+.header-sub{font-size:clamp(10px,1.5vw,15px);color:#888;margin-top:6px;max-width:320px;line-height:1.5}
+/* ── TABS ── */
+.tabs{display:flex;padding:4px;border:1px solid #e5e5e5;border-radius:14px;overflow-x:auto;width:100%;gap:0}
+@media(min-width:768px){.tabs{width:auto;border-radius:18px}}
+.tab{padding:8px 16px;border-radius:10px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:#000;white-space:nowrap;transition:background .15s,color .15s;font-family:inherit}
+@media(min-width:768px){.tab{font-size:11px;padding:9px 20px;border-radius:12px}}
+.tab.active{background:#000;color:#fff}
+.tab:not(.active):hover{background:#f5f5f5}
+/* ── CAROUSEL ── */
+.carousel-wrap{position:relative;width:100%}
+.carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:6px 4px 16px;-ms-overflow-style:none;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+@media(min-width:768px){.carousel{gap:20px;padding:16px 4px 32px}}
+/* ── CARD ── */
+.card{scroll-snap-align:center;flex:0 0 calc(100% - 16px);max-width:400px;background:#fff;border:1px solid #f0f0f0;border-radius:24px;padding:16px;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.23,1,.32,1),border-color .2s;cursor:default}
+@media(min-width:768px){.card{scroll-snap-align:start;flex:0 0 360px;min-height:420px;border-radius:32px;padding:24px}}
+.card:hover{transform:scale(1.03);border-color:#000}
+.card:hover .card-icon{background:#000;color:#fff}
+.card:hover .card-icon svg{transform:rotate(-12deg) scale(1.1)}
+/* ── CARD PARTS ── */
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+@media(min-width:768px){.card-top{margin-bottom:16px}}
+.card-icon{width:36px;height:36px;border:1px solid #000;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:background .25s,color .25s;color:#000;background:#fff;flex-shrink:0}
+.card-icon svg{width:16px;height:16px;transform:rotate(0deg) scale(1);transition:transform .4s cubic-bezier(.23,1,.32,1);will-change:transform}
+@media(min-width:768px){.card-icon{width:48px;height:48px;border-radius:14px}.card-icon svg{width:22px;height:22px}}
+.card-tag{font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:1px solid #000;padding:2px 8px;border-radius:999px}
+@media(min-width:768px){.card-tag{font-size:9px;padding:3px 10px}}
+.card-tag.digital{background:#000;color:#fff}
+.card-body{flex:1}
+.card-title{font-size:15px;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;line-height:1;margin-bottom:3px}
+@media(min-width:768px){.card-title{font-size:22px;margin-bottom:5px}}
+.card-subtitle{font-size:8px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+@media(min-width:768px){.card-subtitle{font-size:11px;margin-bottom:10px}}
+.card-desc{font-size:10px;color:#666;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(min-width:768px){.card-desc{font-size:14px;-webkit-line-clamp:unset;overflow:visible}}
+.card-footer{margin-top:10px;padding-top:10px;border-top:1px solid #f5f5f5}
+@media(min-width:768px){.card-footer{margin-top:16px;padding-top:16px}}
+.card-pricing{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px}
+.price-label{font-size:7px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px}
+@media(min-width:768px){.price-label{font-size:8px}}
+.price-val{font-size:14px;font-weight:900;line-height:1}
+@media(min-width:768px){.price-val{font-size:20px}}
+.delay-val{font-size:9px;font-weight:700}
+@media(min-width:768px){.delay-val{font-size:12px}}
+.card-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn-detail{padding:8px;background:#fff;border:1px solid #e0e0e0;border-radius:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:border-color .15s}
+.btn-detail:hover{border-color:#000}
+@media(min-width:768px){.btn-detail{font-size:10px;padding:10px;border-radius:12px}}
+.btn-reserve{padding:8px;background:#000;color:#fff;border:none;border-radius:10px;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;transition:background .15s}
+.btn-reserve:hover{background:#222}
+@media(min-width:768px){.btn-reserve{font-size:10px;padding:10px;border-radius:12px}}
+.btn-reserve svg{width:10px;height:10px}
+@media(min-width:768px){.btn-reserve svg{width:12px;height:12px}}
+/* ── DOTS ── */
+.dots{display:flex;justify-content:center;gap:6px;margin-top:4px}
+@media(min-width:768px){.dots{gap:8px;margin-top:8px}}
+.dot{height:4px;border-radius:999px;border:none;cursor:pointer;background:#e0e0e0;transition:width .25s,background .25s;padding:0}
+.dot.active{width:20px;background:#000}
+.dot:not(.active){width:4px}
+@media(min-width:768px){.dot.active{width:32px;height:6px}.dot:not(.active){width:6px;height:6px}}
+/* ── MODAL OVERLAY ── */
+.overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+@media(min-width:768px){.overlay{align-items:center}}
+.overlay.open{opacity:1;pointer-events:auto}
+.overlay-bg{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+/* ── MODAL PANEL ── */
+.modal{position:relative;z-index:1;background:#fff;width:100%;max-width:680px;border-radius:32px 32px 0 0;padding:24px 24px 40px;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.23,1,.32,1);scrollbar-width:thin;scrollbar-color:#000 #f1f1f1}
+.modal::-webkit-scrollbar{width:4px}
+.modal::-webkit-scrollbar-track{background:#f1f1f1}
+.modal::-webkit-scrollbar-thumb{background:#000;border-radius:10px}
+@media(min-width:768px){.modal{border-radius:40px;padding:40px;max-height:88vh;transform:scale(.95) translateY(0);opacity:0;transition:transform .3s cubic-bezier(.23,1,.32,1),opacity .25s}}
+.overlay.open .modal{transform:translateY(0)}
+@media(min-width:768px){.overlay.open .modal{transform:scale(1);opacity:1}}
+.modal-close{position:absolute;top:16px;right:16px;width:40px;height:40px;background:#f3f3f3;border:none;border-radius:999px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;color:#000}
+.modal-close:hover{background:#000;color:#fff}
+.modal-close svg{width:18px;height:18px}
+@media(min-width:768px){.modal-close{top:24px;right:24px;width:48px;height:48px}.modal-close svg{width:22px;height:22px}}
+.modal-badge{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:#f3f3f3;padding:5px 14px;border-radius:999px;display:inline-block;margin-bottom:12px}
+@media(min-width:768px){.modal-badge{font-size:10px}}
+.modal-title{font-size:clamp(22px,5vw,30px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin-bottom:4px}
+.modal-sub{font-size:clamp(14px,2vw,18px);font-weight:700;color:#ccc;margin-bottom:24px}
+@media(min-width:768px){.modal-sub{margin-bottom:32px}}
+.modal-objectif-box{background:#fafafa;border:1px solid #f0f0f0;border-radius:24px;padding:20px 24px;margin-bottom:24px}
+@media(min-width:768px){.modal-objectif-box{border-radius:32px;padding:28px 32px;margin-bottom:28px}}
+.modal-objectif-text{font-size:13px;font-weight:700;font-style:italic;color:#000;line-height:1.65;margin-bottom:14px}
+@media(min-width:768px){.modal-objectif-text{font-size:15px}}
+.micro-label{font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#aaa;margin-bottom:10px}
+.comprend-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.comprend-list li{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#444;line-height:1.5}
+@media(min-width:768px){.comprend-list li{font-size:14px}}
+.dot-bullet{width:6px;height:6px;background:#000;border-radius:50%;flex-shrink:0;margin-top:5px}
+.modal-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:20px}
+@media(min-width:640px){.modal-grid{grid-template-columns:1fr 1fr;gap:32px}}
+.livrables-list{list-style:none;display:flex;flex-direction:column;gap:7px;border-left:2px solid #f0f0f0;padding-left:14px}
+.livrables-list li{font-size:12px;color:#555;line-height:1.5}
+@media(min-width:768px){.livrables-list li{font-size:13px}}
+.formules-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.formules-list li{font-size:12px;font-weight:700;color:#333}
+@media(min-width:768px){.formules-list li{font-size:13px}}
+.modal-options{padding-top:16px;border-top:1px solid #f0f0f0;margin-bottom:24px}
+.options-text{font-size:10px;color:#888;font-style:italic;margin-bottom:6px;line-height:1.6}
+@media(min-width:768px){.options-text{font-size:12px}}
+.ideal-text{font-size:10px;font-weight:700;line-height:1.55}
+@media(min-width:768px){.ideal-text{font-size:12px}}
+.ideal-text span{font-weight:400;color:#555}
+.modal-footer{padding-top:24px;border-top:1px solid #f0f0f0;display:flex;flex-direction:column;gap:20px}
+@media(min-width:640px){.modal-footer{flex-direction:row;align-items:center;justify-content:space-between}}
+.modal-price-val{font-size:clamp(18px,3.5vw,28px);font-weight:900;white-space:nowrap}
+.btn-modal-reserve{background:#000;color:#fff;padding:14px 32px;border-radius:14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .2s;font-family:inherit;border:none;cursor:pointer;white-space:nowrap}
+.btn-modal-reserve:hover{transform:scale(1.04)}
+@media(min-width:768px){.btn-modal-reserve{font-size:14px;border-radius:18px;padding:16px 40px}}
+.btn-modal-reserve svg{width:14px;height:14px}
+</style>
+</head>
+<body>
+
+<section class="section">
+  <div class="inner">
+    <div class="header">
+      <div>
+        <h2 class="header-title">Les Prestations<br>Artax Studio.</h2>
+        <p class="header-sub">Des solutions prêtes à être diffusées pour les solopreneurs.</p>
+      </div>
+      <div class="tabs" id="tabs"></div>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel" id="carousel"></div>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="overlay-bg" id="overlay-bg"></div>
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ── SVG ICONS ──────────────────────────────────────────────────
+var ICONS = {
+  zap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  megaphone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
+  layers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+  monitor:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  camera:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>',
+  music:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+  layout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  pointer:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>'
+};
+
+// ── DATA ───────────────────────────────────────────────────────
+var OFFERS = [
+  {id:'identite',title:'IDENTITÉ VISUELLE',subtitle:'Branding / Rebranding',price:'À partir de 700 €',delay:'1 à 2 semaines',icon:'zap',tag:'Identité',cat:'one-shot',
+   desc:'Construire une identité visuelle claire, cohérente et immédiatement exploitable pour poser des bases solides.',
+   details:{
+    obj:'Poser des bases solides et professionnelles.',
+    comprend:['1 logo principal','1 à 2 variantes de logo','versions monochromes','système typographique','nuancier','création de pictogrammes ou éléments graphiques simples','brandbook enrichi (règles d\'usage, do / don\'t)','définition de messages clés personnalisés','2 allers-retours inclus'],
+    livrables:['logo principal et variantes','versions couleur et monochromes','fichiers web et print','exports en SVG, PNG et JPEG','brandbook PDF','3 supports inclus : carte de visite, profil social, bannière social','accompagnement à l\'impression','cession des droits d\'auteur'],
+    options:['support supplémentaire : sur devis','déclinaison sur support additionnel : sur devis','éléments graphiques complémentaires : sur devis'],
+    ideal:'Les solopreneurs qui lancent leur activité ou les marques qui souhaitent repartir sur des bases plus cohérentes.'
+  }},
+  {id:'notoriete',title:'CAMPAGNE DE NOTORIÉTÉ',subtitle:'Plan de diffusion 30 jours',price:'À partir de 1 800 €',delay:'30 jours',icon:'megaphone',tag:'Visibilité',cat:'one-shot',
+   desc:'Déployer une communication visuelle cohérente pour renforcer votre visibilité et accompagner un lancement.',
+   details:{
+    obj:'Renforcer votre visibilité et accompagner un lancement ou un temps fort.',
+    comprend:['définition d\'un axe de campagne','stratégie de diffusion sur 30 jours (focus Instagram)','création d\'un visuel clé décliné','déclinaisons en carrousel','CTA intégré','adaptations print possibles','2 à 3 visuels par publication','cohérence graphique et émotionnelle','2 allers-retours inclus'],
+    livrables:['plan de diffusion 30 jours','visuels déclinés réseaux sociaux','adaptations print A5 / A4 / A3','exports prêts à l\'emploi'],
+    options:['visuel supplémentaire : +25 € / visuel','gestion de la publication : +300 €','adaptation support spécifique : sur devis'],
+    ideal:'Lancer un produit, un service ou une offre de manière structurée.'
+  }},
+  {id:'rs-print',title:'FORFAIT VISUEL RS / PRINT',subtitle:'Création de contenus récurrents',price:'À partir de 180 €',delay:'Mensuel',icon:'layers',tag:'Contenu',cat:'recurrent',
+   desc:'Professionnaliser vos contenus avec des visuels cohérents, efficaces et alignés avec votre direction artistique.',
+   details:{
+    obj:'Gardez une cohérence visuelle dans le temps pour le digital et le print.',
+    comprend:['création ou optimisation de visuels','adaptation à votre identité visuelle','travail de cohérence graphique','optimisation réseaux sociaux et print','mise en forme à partir de vos textes/idées','1 aller-retour inclus par visuel'],
+    livrables:['visuels prêts à publier','format principal 1080 x 1350','déclinaisons selon besoins','exports digitaux'],
+    tarifs:['Basique (8 visuels) : 180 à 540 €','Standard (12 visuels) : 255 à 765 €','Intensif (16 visuels) : 320 à 960 €'],
+    options:['déclinaison de format : +25 €','urgence sous 72h : +25 €','audit stratégique initial : +150 €'],
+    ideal:'Créer de l\'engagement et professionnaliser ses contenus récurrents.'
+  }},
+  {id:'affiche',title:'AFFICHE & DÉCLINAISONS',subtitle:'Visuel clé tous formats',price:'À partir de 690 €',delay:'7 jours',icon:'monitor',tag:'Communication',cat:'one-shot',
+   desc:'Créer un visuel fort et le déployer sur tous vos supports print et digitaux, sans effort supplémentaire.',
+   details:{
+    obj:'Un visuel fort, pensé pour exister partout — du mur à l\'écran.',
+    comprend:['création d\'un visuel original haute qualité','conception au format A2 (base de travail)','déclinaison print : A3 / A4 / A5','déclinaison digitale : format Instagram + LinkedIn','cohérence graphique maintenue sur tous les formats','2 allers-retours inclus'],
+    livrables:['fichiers print prêts à l\'impression (A2 / A3 / A4 / A5)','visuels RS exportés aux bons formats','exports haute définition livrés sous 7 jours'],
+    options:['format supplémentaire : +80 € / format','déclinaison motion (réel/story animée) : +200 €','rédaction des textes et accroches : +150 €'],
+    ideal:'La promotion d\'une pièce de théâtre, d\'un film ou court métrage, le lancement d\'un produit, d\'un service, l\'ouverture d\'une entreprise ou la communication d\'un événement.'
+  }},
+  {id:'photo',title:'PHOTOS PRO',subtitle:'Flash Portrait Date',price:'À partir de 70 € / pers',delay:'Rapide',icon:'camera',tag:'Portrait',cat:'one-shot',
+   desc:'Des portraits professionnels, naturels et efficaces pour renforcer votre image sur vos réseaux.',
+   details:{
+    obj:'Professionnaliser son image avec des visuels propres.',
+    comprend:['séance photo (groupé ou individuel)','accompagnement pose et cadrage','sélection d\'images','retouche des photos finales','approche image pro et personnelle','1 aller-retour inclus'],
+    livrables:['3 photos retouchées par participant','version numérique via Drive','rushs fournis','formats adaptés digital/pro'],
+    tarifs:['Session individuelle studio : 90 € / heure'],
+    options:['maquillage : +50 €','retouche avancée : +40 € / photo','photo supplémentaire : +60 €'],
+    ideal:'Professionnaliser son image ou mettre à jour ses portraits réseaux.'
+  }},
+  {id:'video',title:'VIDÉOS PRO',subtitle:'Contenus audiovisuels courts',price:'À partir de 690 €',delay:'2 jours',icon:'video',tag:'Vidéo',cat:'one-shot',
+   desc:'Valoriser votre activité avec une vidéo professionnelle pensée pour présenter vos services ou votre univers.',
+   details:{
+    obj:'Améliorer la perception de valeur avec du contenu pro.',
+    comprend:['préparation concept & scénario','storyboard simplifié','tournage Studio Artax ou sur place','montage & intégration musicale','2 allers-retours inclus'],
+    livrables:['vidéo finale exportée','format adapté au besoin'],
+    tarifs:['Vidéo promo (15-30s) : Dès 690 €','Vidéo interview (1-3 min) : Dès 890 €'],
+    options:['voix off : +190 €','version supplémentaire : +120 €','multicam : +150 €'],
+    ideal:'Promouvoir son activité et valoriser ses services.'
+  }},
+  {id:'music',title:'COVERS ALBUMS',subtitle:'Direction visuelle pour artistes',price:'À partir de 450 €',delay:'2 semaines',icon:'music',tag:'Musique',cat:'one-shot',
+   desc:'Créer une couverture d\'album singulière et cohérente avec l\'univers musical du projet.',
+   details:{
+    obj:'Une direction visuelle forte et incarnée pour votre projet musical.',
+    comprend:['échange sur l\'univers','définition direction visuelle','création proposition sur mesure','adaptation digital et print','2 allers-retours inclus'],
+    livrables:['couverture finale','fichier prêt à l\'emploi','export digital','adaptation print si prévue'],
+    options:['déclinaisons formats : +100 €','illustration originale : +150 €','extraction merchandising : +230 €'],
+    ideal:'Artistes voulant une couverture forte et une direction visuelle singulière.'
+  }},
+  {id:'plaquettes',title:'PLAQUETTES',subtitle:'Supports de présentation',price:'À partir de 350 €',delay:'1 semaine',icon:'file',tag:'Print',cat:'one-shot',
+   desc:'Présenter vos services avec un support structuré, cohérent et soigné.',
+   details:{
+    obj:'Disposer d\'un support commercial clair et pro.',
+    comprend:['conception sur mesure','hiérarchisation des contenus','mise en page professionnelle','cohérence identité visuelle','2 allers-retours inclus'],
+    livrables:['plaquette format adapté','version numérique','pagination ajustable','version print-ready en option'],
+    options:['page supplémentaire : +100 €','fichier prêt à imprimer : +50 €'],
+    ideal:'Présenter une offre ou prolonger une identité sur un support physique.'
+  }}
+];
+
+var TABS = [
+  {id:'all',label:'Tout'},
+  {id:'recurrent',label:'Récurrent'},
+  {id:'one-shot',label:'Prestations'},
+];
+
+// ── STATE ──────────────────────────────────────────────────────
+var activeTab = 'all';
+var activeIdx = 0;
+
+// ── HELPERS ───────────────────────────────────────────────────
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function filtered(){
+  return activeTab === 'all' ? OFFERS : OFFERS.filter(function(o){ return o.cat === activeTab; });
+}
+
+// ── RENDER TABS ───────────────────────────────────────────────
+function renderTabs(){
+  var el = document.getElementById('tabs');
+  el.innerHTML = TABS.map(function(t){
+    return '<button class="tab'+(activeTab===t.id?' active':'')+'" data-tab="'+t.id+'">'+t.label+'</button>';
+  }).join('');
+  el.querySelectorAll('.tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      activeTab = this.getAttribute('data-tab');
+      activeIdx = 0;
+      renderAll();
+    });
+  });
+}
+
+// ── RENDER CARDS ──────────────────────────────────────────────
+function renderCards(){
+  var list = filtered();
+  var carousel = document.getElementById('carousel');
+  carousel.innerHTML = list.map(function(o, i){
+    return '<div class="card" data-i="'+i+'" tabindex="0">'+
+      '<div class="card-top">'+
+        '<div class="card-icon">'+(ICONS[o.icon]||ICONS.layout)+'</div>'+
+        '<span class="card-tag'+(o.cat==='passive'?' digital':'')+'">'+esc(o.tag)+'</span>'+
+      '</div>'+
+      '<div class="card-body">'+
+        '<h3 class="card-title">'+esc(o.title)+'</h3>'+
+        '<p class="card-subtitle">'+esc(o.subtitle)+'</p>'+
+        '<p class="card-desc">'+esc(o.desc)+'</p>'+
+      '</div>'+
+      '<div class="card-footer">'+
+        '<div class="card-pricing">'+
+          '<div><div class="price-label">Investissement</div><div class="price-val">'+esc(o.price)+'</div></div>'+
+          '<div style="text-align:right"><div class="price-label">Délai</div><div class="delay-val">'+esc(o.delay)+'</div></div>'+
+        '</div>'+
+        '<div class="card-btns">'+
+          '<button class="btn-detail" data-open="'+i+'">Détails</button>'+
+          '<a class="btn-reserve" href="https://www.artaxstudio.fr/contact" target="_blank" rel="noopener">Réserver '+ICONS.arrow+'</a>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  // detail buttons
+  carousel.querySelectorAll('.btn-detail').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      openModal(parseInt(this.getAttribute('data-open')));
+    });
+  });
+
+  // scroll → update dots
+  carousel.addEventListener('scroll', function(){
+    var list2 = filtered();
+    var idx = Math.round(carousel.scrollLeft / (carousel.scrollWidth / list2.length));
+    if(idx !== activeIdx){ activeIdx = idx; renderDots(); }
+  }, {passive:true});
+}
+
+// ── RENDER DOTS ───────────────────────────────────────────────
+function renderDots(){
+  var list = filtered();
+  var el = document.getElementById('dots');
+  el.innerHTML = list.map(function(_,i){
+    return '<button class="dot'+(i===activeIdx?' active':'')+'" data-di="'+i+'" aria-label="Slide '+(i+1)+'"></button>';
+  }).join('');
+  el.querySelectorAll('.dot').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var i = parseInt(this.getAttribute('data-di'));
+      activeIdx = i;
+      var carousel = document.getElementById('carousel');
+      var iw = carousel.scrollWidth / filtered().length;
+      carousel.scrollTo({left: iw * i, behavior:'smooth'});
+      renderDots();
+    });
+  });
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+function openModal(idx){
+  var list = filtered();
+  var o = list[idx];
+  if(!o) return;
+  var d = o.details;
+
+  var comprend = (d.comprend||[]).map(function(c){
+    return '<li><span class="dot-bullet"></span>'+esc(c)+'</li>';
+  }).join('');
+
+  var livrables = (d.livrables||[]).map(function(l){
+    return '<li>• '+esc(l)+'</li>';
+  }).join('');
+
+  var tarifs = d.tarifs ? '<div><div class="micro-label">Formules</div><ul class="formules-list">'+
+    d.tarifs.map(function(t){ return '<li>→ '+esc(t)+'</li>'; }).join('')+
+  '</ul></div>' : '';
+
+  var options = d.options ? '<p class="options-text">Options : '+esc(d.options.join(' — '))+'</p>' : '';
+
+  document.getElementById('modal-content').innerHTML =
+    '<span class="modal-badge">Offre détaillée</span>'+
+    '<h3 class="modal-title">'+esc(o.title)+'</h3>'+
+    '<p class="modal-sub">'+esc(o.subtitle)+'</p>'+
+    '<div class="modal-objectif-box">'+
+      '<p class="modal-objectif-text">"'+esc(d.obj)+'"</p>'+
+      '<div class="micro-label">Ce que comprend l\'offre</div>'+
+      '<ul class="comprend-list">'+comprend+'</ul>'+
+    '</div>'+
+    '<div class="modal-grid">'+
+      '<div><div class="micro-label">Livrables</div><ul class="livrables-list">'+livrables+'</ul></div>'+
+      tarifs+
+    '</div>'+
+    '<div class="modal-options">'+
+      options+
+      '<p class="ideal-text">Idéal pour : <span>'+esc(d.ideal)+'</span></p>'+
+    '</div>'+
+    '<div class="modal-footer">'+
+      '<div><div class="price-label">Tarif indicatif</div><div class="modal-price-val">'+esc(o.price)+'</div></div>'+
+      '<a class="btn-modal-reserve" href="https://www.artaxstudio.fr/contact" target="_blank" rel="noopener">'+
+        'Contacter le Studio '+ICONS.pointer+
+      '</a>'+
+    '</div>';
+
+  var overlay = document.getElementById('overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('overlay-bg').addEventListener('click', closeModal);
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+// ── INIT ──────────────────────────────────────────────────────
+function renderAll(){
+  renderTabs();
+  renderCards();
+  renderDots();
+}
+
+renderAll();
+</script>
+</body>
+</html>
